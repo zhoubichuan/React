@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>react-reconciler | React笔记</title>
+    <meta name="description" content="个人总结的vuepress学习技术文档-语法">
+    <link rel="icon" href="">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="msapplication-TileColor" content="#000000">
+    <meta name="keywords" content="vuepress,最新技术文档,vuepress语法,markdown语法">
+    <link rel="preload" href="/Web-React/assets/css/0.styles.da03e373.css" as="style"><link rel="preload" href="/Web-React/assets/js/app.5b5e04da.js" as="script"><link rel="preload" href="/Web-React/assets/js/129.6d95fac0.js" as="script"><link rel="prefetch" href="/Web-React/assets/js/10.8da42df7.js"><link rel="prefetch" href="/Web-React/assets/js/100.d62084b5.js"><link rel="prefetch" href="/Web-React/assets/js/101.42b44309.js"><link rel="prefetch" href="/Web-React/assets/js/102.fa99603d.js"><link rel="prefetch" href="/Web-React/assets/js/103.4f022b5a.js"><link rel="prefetch" href="/Web-React/assets/js/104.c2765a7d.js"><link rel="prefetch" href="/Web-React/assets/js/105.a7bef4f1.js"><link rel="prefetch" href="/Web-React/assets/js/106.ff1a8c71.js"><link rel="prefetch" href="/Web-React/assets/js/107.4fbff9c0.js"><link rel="prefetch" href="/Web-React/assets/js/108.c2634676.js"><link rel="prefetch" href="/Web-React/assets/js/109.a896cc22.js"><link rel="prefetch" href="/Web-React/assets/js/11.221dd47f.js"><link rel="prefetch" href="/Web-React/assets/js/110.80b848b9.js"><link rel="prefetch" href="/Web-React/assets/js/111.fbdd6a6f.js"><link rel="prefetch" href="/Web-React/assets/js/112.e9fda887.js"><link rel="prefetch" href="/Web-React/assets/js/113.7840cc3c.js"><link rel="prefetch" href="/Web-React/assets/js/114.e9fb8a4a.js"><link rel="prefetch" href="/Web-React/assets/js/115.a27655a7.js"><link rel="prefetch" href="/Web-React/assets/js/116.6e04de84.js"><link rel="prefetch" href="/Web-React/assets/js/117.092ef59b.js"><link rel="prefetch" href="/Web-React/assets/js/118.98323e57.js"><link rel="prefetch" href="/Web-React/assets/js/119.b92d2ab7.js"><link rel="prefetch" href="/Web-React/assets/js/12.b0ac49ee.js"><link rel="prefetch" href="/Web-React/assets/js/120.20958170.js"><link rel="prefetch" href="/Web-React/assets/js/121.c79b8844.js"><link rel="prefetch" href="/Web-React/assets/js/122.5ab0ba88.js"><link rel="prefetch" href="/Web-React/assets/js/123.8334c415.js"><link rel="prefetch" href="/Web-React/assets/js/124.49b9f6a8.js"><link rel="prefetch" href="/Web-React/assets/js/125.cd1f28e0.js"><link rel="prefetch" href="/Web-React/assets/js/126.710cd172.js"><link rel="prefetch" href="/Web-React/assets/js/127.0242e358.js"><link rel="prefetch" href="/Web-React/assets/js/128.ee8936d7.js"><link rel="prefetch" href="/Web-React/assets/js/13.b53f0245.js"><link rel="prefetch" href="/Web-React/assets/js/130.a1fae5fa.js"><link rel="prefetch" href="/Web-React/assets/js/131.0fb93184.js"><link rel="prefetch" href="/Web-React/assets/js/132.1939f6ca.js"><link rel="prefetch" href="/Web-React/assets/js/133.2d84f2cf.js"><link rel="prefetch" href="/Web-React/assets/js/14.08a986e4.js"><link rel="prefetch" href="/Web-React/assets/js/15.cc7bf7b4.js"><link rel="prefetch" href="/Web-React/assets/js/16.b4b634e4.js"><link rel="prefetch" href="/Web-React/assets/js/17.6bc03c1f.js"><link rel="prefetch" href="/Web-React/assets/js/18.755676f5.js"><link rel="prefetch" href="/Web-React/assets/js/19.c18b89d4.js"><link rel="prefetch" href="/Web-React/assets/js/2.95fc3ca7.js"><link rel="prefetch" href="/Web-React/assets/js/20.01c750a8.js"><link rel="prefetch" href="/Web-React/assets/js/21.5f98ddb1.js"><link rel="prefetch" href="/Web-React/assets/js/22.8e29a0ad.js"><link rel="prefetch" href="/Web-React/assets/js/23.c3763e68.js"><link rel="prefetch" href="/Web-React/assets/js/24.208a5ef8.js"><link rel="prefetch" href="/Web-React/assets/js/25.f2c5faa3.js"><link rel="prefetch" href="/Web-React/assets/js/26.7cd15f09.js"><link rel="prefetch" href="/Web-React/assets/js/27.8ed02ed1.js"><link rel="prefetch" href="/Web-React/assets/js/28.34a7b0ad.js"><link rel="prefetch" href="/Web-React/assets/js/29.54c3cdbe.js"><link rel="prefetch" href="/Web-React/assets/js/3.27ea1e57.js"><link rel="prefetch" href="/Web-React/assets/js/30.689408cc.js"><link rel="prefetch" href="/Web-React/assets/js/31.7fdc1aba.js"><link rel="prefetch" href="/Web-React/assets/js/32.92dab663.js"><link rel="prefetch" href="/Web-React/assets/js/33.ab8e4c07.js"><link rel="prefetch" href="/Web-React/assets/js/34.62fc9fe9.js"><link rel="prefetch" href="/Web-React/assets/js/35.a9025f90.js"><link rel="prefetch" href="/Web-React/assets/js/36.4b275238.js"><link rel="prefetch" href="/Web-React/assets/js/37.320d419d.js"><link rel="prefetch" href="/Web-React/assets/js/38.b333263c.js"><link rel="prefetch" href="/Web-React/assets/js/39.7709d0e5.js"><link rel="prefetch" href="/Web-React/assets/js/4.e8098036.js"><link rel="prefetch" href="/Web-React/assets/js/40.93006b9f.js"><link rel="prefetch" href="/Web-React/assets/js/41.d0dc1d79.js"><link rel="prefetch" href="/Web-React/assets/js/42.76f5bdd0.js"><link rel="prefetch" href="/Web-React/assets/js/43.9f9ca9fb.js"><link rel="prefetch" href="/Web-React/assets/js/44.1bb37dd9.js"><link rel="prefetch" href="/Web-React/assets/js/45.547e3223.js"><link rel="prefetch" href="/Web-React/assets/js/46.610866d7.js"><link rel="prefetch" href="/Web-React/assets/js/47.1e41e7f0.js"><link rel="prefetch" href="/Web-React/assets/js/48.c4ad80a4.js"><link rel="prefetch" href="/Web-React/assets/js/49.f95bf9ab.js"><link rel="prefetch" href="/Web-React/assets/js/5.5b6fb3b0.js"><link rel="prefetch" href="/Web-React/assets/js/50.dd531368.js"><link rel="prefetch" href="/Web-React/assets/js/51.618ccd1d.js"><link rel="prefetch" href="/Web-React/assets/js/52.517eed61.js"><link rel="prefetch" href="/Web-React/assets/js/53.e5e7bbb8.js"><link rel="prefetch" href="/Web-React/assets/js/54.66ed2897.js"><link rel="prefetch" href="/Web-React/assets/js/55.4e53eb83.js"><link rel="prefetch" href="/Web-React/assets/js/56.5fb98eea.js"><link rel="prefetch" href="/Web-React/assets/js/57.1e89d3b6.js"><link rel="prefetch" href="/Web-React/assets/js/58.8d522fab.js"><link rel="prefetch" href="/Web-React/assets/js/59.711a746a.js"><link rel="prefetch" href="/Web-React/assets/js/6.689f19ef.js"><link rel="prefetch" href="/Web-React/assets/js/60.4ad0b239.js"><link rel="prefetch" href="/Web-React/assets/js/61.6dcdb66a.js"><link rel="prefetch" href="/Web-React/assets/js/62.3a77adee.js"><link rel="prefetch" href="/Web-React/assets/js/63.7f1c3ac3.js"><link rel="prefetch" href="/Web-React/assets/js/64.8eabc69e.js"><link rel="prefetch" href="/Web-React/assets/js/65.c08ef103.js"><link rel="prefetch" href="/Web-React/assets/js/66.128d86ee.js"><link rel="prefetch" href="/Web-React/assets/js/67.ba6d58de.js"><link rel="prefetch" href="/Web-React/assets/js/68.0a4fedd9.js"><link rel="prefetch" href="/Web-React/assets/js/69.36b90180.js"><link rel="prefetch" href="/Web-React/assets/js/7.672d337f.js"><link rel="prefetch" href="/Web-React/assets/js/70.e7fdd259.js"><link rel="prefetch" href="/Web-React/assets/js/71.d9ca0be2.js"><link rel="prefetch" href="/Web-React/assets/js/72.dea09b04.js"><link rel="prefetch" href="/Web-React/assets/js/73.55630b42.js"><link rel="prefetch" href="/Web-React/assets/js/74.573a2d4c.js"><link rel="prefetch" href="/Web-React/assets/js/75.89cb75df.js"><link rel="prefetch" href="/Web-React/assets/js/76.34fd7b33.js"><link rel="prefetch" href="/Web-React/assets/js/77.319367b0.js"><link rel="prefetch" href="/Web-React/assets/js/78.53edf409.js"><link rel="prefetch" href="/Web-React/assets/js/79.89bbd826.js"><link rel="prefetch" href="/Web-React/assets/js/8.8f97c9f0.js"><link rel="prefetch" href="/Web-React/assets/js/80.1c420ea4.js"><link rel="prefetch" href="/Web-React/assets/js/81.319987c1.js"><link rel="prefetch" href="/Web-React/assets/js/82.5263fabc.js"><link rel="prefetch" href="/Web-React/assets/js/83.a58d22d2.js"><link rel="prefetch" href="/Web-React/assets/js/84.4017d7a0.js"><link rel="prefetch" href="/Web-React/assets/js/85.76e4b165.js"><link rel="prefetch" href="/Web-React/assets/js/86.91dff085.js"><link rel="prefetch" href="/Web-React/assets/js/87.cad8b44a.js"><link rel="prefetch" href="/Web-React/assets/js/88.f901b847.js"><link rel="prefetch" href="/Web-React/assets/js/89.764748c4.js"><link rel="prefetch" href="/Web-React/assets/js/9.a71d38e5.js"><link rel="prefetch" href="/Web-React/assets/js/90.d6003820.js"><link rel="prefetch" href="/Web-React/assets/js/91.4dabf19a.js"><link rel="prefetch" href="/Web-React/assets/js/92.9aeb5edd.js"><link rel="prefetch" href="/Web-React/assets/js/93.9edfe1ac.js"><link rel="prefetch" href="/Web-React/assets/js/94.ba3a4cc0.js"><link rel="prefetch" href="/Web-React/assets/js/95.271824f4.js"><link rel="prefetch" href="/Web-React/assets/js/96.60bf314b.js"><link rel="prefetch" href="/Web-React/assets/js/97.443cecb4.js"><link rel="prefetch" href="/Web-React/assets/js/98.d0c8bd1e.js"><link rel="prefetch" href="/Web-React/assets/js/99.cc5ac40d.js">
+    <link rel="stylesheet" href="/Web-React/assets/css/0.styles.da03e373.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/Web-React/" class="home-link router-link-active"><!----> <span class="site-name">React笔记</span></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">基础知识</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/Web-React/base/build/1.config.html" class="nav-link">1.React实践指南</a></li><li class="dropdown-item"><!----> <a href="/Web-React/base/practice/base.html" class="nav-link">2.React基础知识</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">高级知识</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/Web-React/senior/use/1.recursionAndDynamics.html" class="nav-link">1.组件精讲</a></li><li class="dropdown-item"><!----> <a href="/Web-React/senior/typeScript.html" class="nav-link">2.TypeScript</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">源码知识</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/Web-React/source/react/1.preparation.html" class="nav-link">1.react源码解析</a></li><li class="dropdown-item"><!----> <a href="/Web-React/source/react-dom/1.preparation.html" class="nav-link">2.react-dom源码解析</a></li><li class="dropdown-item"><!----> <a href="/Web-React/source/1.html" class="nav-link">3.react-router源码解析</a></li><li class="dropdown-item"><!----> <a href="/Web-React/source/1.html" class="nav-link">4.redux源码解析</a></li><li class="dropdown-item"><!----> <a href="/Web-React/source/antd/Pagination.html" class="nav-link">5.antd源码解析</a></li></ul></div></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">基础知识</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/Web-React/base/build/1.config.html" class="nav-link">1.React实践指南</a></li><li class="dropdown-item"><!----> <a href="/Web-React/base/practice/base.html" class="nav-link">2.React基础知识</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">高级知识</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/Web-React/senior/use/1.recursionAndDynamics.html" class="nav-link">1.组件精讲</a></li><li class="dropdown-item"><!----> <a href="/Web-React/senior/typeScript.html" class="nav-link">2.TypeScript</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">源码知识</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/Web-React/source/react/1.preparation.html" class="nav-link">1.react源码解析</a></li><li class="dropdown-item"><!----> <a href="/Web-React/source/react-dom/1.preparation.html" class="nav-link">2.react-dom源码解析</a></li><li class="dropdown-item"><!----> <a href="/Web-React/source/1.html" class="nav-link">3.react-router源码解析</a></li><li class="dropdown-item"><!----> <a href="/Web-React/source/1.html" class="nav-link">4.redux源码解析</a></li><li class="dropdown-item"><!----> <a href="/Web-React/source/antd/Pagination.html" class="nav-link">5.antd源码解析</a></li></ul></div></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/Web-React/source/react-dom/1.preparation.html" class="sidebar-link">源码概览</a></li><li><a href="/Web-React/source/react-dom/3.ReactRoot.html" class="sidebar-link">1.ReactRoot</a></li><li><a href="/Web-React/source/react-dom/3.1root.html" class="sidebar-link">1.1 root</a></li><li><a href="/Web-React/source/react-dom/3.2expirationTime.html" class="sidebar-link">1.2 expirationTime</a></li><li><a href="/Web-React/source/react-dom/3.3UpdateQueue.html" class="sidebar-link">1.3 UpdateQueue</a></li><li><a href="/Web-React/source/react-dom/4.renderRoot.html" class="sidebar-link">2.renderRoot</a></li><li><a href="/Web-React/source/react-dom/4.1createWorkInProgress.html" class="sidebar-link">2.1 createWorkInProgress</a></li><li><a href="/Web-React/source/react-dom/4.2workLoop.html" class="sidebar-link">2.2 workLoop</a></li><li><a href="/Web-React/source/react-dom/4.3onComplete.html" class="sidebar-link">2.3 onComplete</a></li><li><a href="/Web-React/source/react-dom/5.commitRoot.html" class="sidebar-link">3 commitRoot</a></li><li><a href="/Web-React/source/react-dom/5.1lcommitBeforeMutationLifecycles.html" class="sidebar-link">3.1 commitBeforeMutationLifecycles</a></li><li><a href="/Web-React/source/react-dom/5.2commitAllHostEffects.html" class="sidebar-link">3.2 commitAllHostEffects</a></li><li><a href="/Web-React/source/react-dom/5.3lcommitAllLifeCycles.html" class="sidebar-link">3.3 commitAllLifeCycles</a></li></ul> </div> <div class="page"> <div class="content"><h1 id="react-reconciler"><a href="#react-reconciler" class="header-anchor">#</a> react-reconciler</h1> <h2 id="updatecontainer"><a href="#updatecontainer" class="header-anchor">#</a> updateContainer</h2> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">updateContainer</span><span class="token punctuation">(</span>
+  <span class="token parameter">element<span class="token operator">:</span> ReactNodeList<span class="token punctuation">,</span>
+  container<span class="token operator">:</span> OpaqueRoot<span class="token punctuation">,</span>
+  parentComponent<span class="token operator">:</span> <span class="token operator">?</span>React$Component<span class="token operator">&lt;</span>any<span class="token punctuation">,</span> any<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+  callback<span class="token operator">:</span> <span class="token operator">?</span>Function<span class="token punctuation">,</span></span>
+<span class="token punctuation">)</span><span class="token operator">:</span> ExpirationTime <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> current <span class="token operator">=</span> container<span class="token punctuation">.</span>current<span class="token punctuation">;</span>
+  <span class="token keyword">const</span> currentTime <span class="token operator">=</span> <span class="token function">requestCurrentTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> expirationTime <span class="token operator">=</span> <span class="token function">computeExpirationForFiber</span><span class="token punctuation">(</span>currentTime<span class="token punctuation">,</span> current<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token function">updateContainerAtExpirationTime</span><span class="token punctuation">(</span>
+    element<span class="token punctuation">,</span>
+    container<span class="token punctuation">,</span>
+    parentComponent<span class="token punctuation">,</span>
+    expirationTime<span class="token punctuation">,</span>
+    callback<span class="token punctuation">,</span>
+  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br></div></div><h2 id="requestcurrenttime"><a href="#requestcurrenttime" class="header-anchor">#</a> requestCurrentTime</h2> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">requestCurrentTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>isRendering<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> currentSchedulerTime<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">findHighestPriorityRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>
+    nextFlushedExpirationTime <span class="token operator">===</span> NoWork <span class="token operator">||</span>
+    nextFlushedExpirationTime <span class="token operator">===</span> Never
+  <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">recomputeCurrentRendererTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    currentSchedulerTime <span class="token operator">=</span> currentRendererTime<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> currentSchedulerTime<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> currentSchedulerTime<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br></div></div><h2 id="computeexpirationforfiber"><a href="#computeexpirationforfiber" class="header-anchor">#</a> computeExpirationForFiber</h2> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">computeExpirationForFiber</span><span class="token punctuation">(</span><span class="token parameter">currentTime<span class="token operator">:</span> ExpirationTime<span class="token punctuation">,</span> fiber<span class="token operator">:</span> Fiber</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">let</span> expirationTime<span class="token punctuation">;</span><span class="token comment">//优先级</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>expirationContext <span class="token operator">!==</span> NoWork<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    expirationTime <span class="token operator">=</span> expirationContext<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>isWorking<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>isCommitting<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      expirationTime <span class="token operator">=</span> Sync<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      expirationTime <span class="token operator">=</span> nextRenderExpirationTime<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>fiber<span class="token punctuation">.</span>mode <span class="token operator">&amp;</span> ConcurrentMode<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>isBatchingInteractiveUpdates<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        expirationTime <span class="token operator">=</span> <span class="token function">computeInteractiveExpiration</span><span class="token punctuation">(</span>currentTime<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//高优先级更新</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        expirationTime <span class="token operator">=</span> <span class="token function">computeAsyncExpiration</span><span class="token punctuation">(</span>currentTime<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//低优先级更新</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>nextRoot <span class="token operator">!==</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> expirationTime <span class="token operator">===</span> nextRenderExpirationTime<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        expirationTime <span class="token operator">+=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      expirationTime <span class="token operator">=</span> Sync<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>isBatchingInteractiveUpdates<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>expirationTime <span class="token operator">&gt;</span> lowestPriorityPendingInteractiveExpirationTime<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      lowestPriorityPendingInteractiveExpirationTime <span class="token operator">=</span> expirationTime<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> expirationTime<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br></div></div><h2 id="updatecontaineratexpirationtime"><a href="#updatecontaineratexpirationtime" class="header-anchor">#</a> updateContainerAtExpirationTime</h2> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">updateContainerAtExpirationTime</span><span class="token punctuation">(</span>
+  <span class="token parameter">element<span class="token operator">:</span> ReactNodeList<span class="token punctuation">,</span>
+  container<span class="token operator">:</span> OpaqueRoot<span class="token punctuation">,</span>
+  parentComponent<span class="token operator">:</span> <span class="token operator">?</span>React$Component<span class="token operator">&lt;</span>any<span class="token punctuation">,</span> any<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+  expirationTime<span class="token operator">:</span> ExpirationTime<span class="token punctuation">,</span>
+  callback<span class="token operator">:</span> <span class="token operator">?</span>Function<span class="token punctuation">,</span></span>
+<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> current <span class="token operator">=</span> container<span class="token punctuation">.</span>current<span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> context <span class="token operator">=</span> <span class="token function">getContextForSubtree</span><span class="token punctuation">(</span>parentComponent<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>container<span class="token punctuation">.</span>context <span class="token operator">===</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    container<span class="token punctuation">.</span>context <span class="token operator">=</span> context<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    container<span class="token punctuation">.</span>pendingContext <span class="token operator">=</span> context<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">return</span> <span class="token function">scheduleRootUpdate</span><span class="token punctuation">(</span>current<span class="token punctuation">,</span> element<span class="token punctuation">,</span> expirationTime<span class="token punctuation">,</span> callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br></div></div><h2 id="schedulerootupdate"><a href="#schedulerootupdate" class="header-anchor">#</a> scheduleRootUpdate</h2> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">scheduleRootUpdate</span><span class="token punctuation">(</span>
+  <span class="token parameter">current<span class="token operator">:</span> Fiber<span class="token punctuation">,</span>
+  element<span class="token operator">:</span> ReactNodeList<span class="token punctuation">,</span>
+  expirationTime<span class="token operator">:</span> ExpirationTime<span class="token punctuation">,</span>
+  callback<span class="token operator">:</span> <span class="token operator">?</span>Function<span class="token punctuation">,</span></span>
+<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> update <span class="token operator">=</span> <span class="token function">createUpdate</span><span class="token punctuation">(</span>expirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  update<span class="token punctuation">.</span>payload <span class="token operator">=</span> <span class="token punctuation">{</span>element<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  callback <span class="token operator">=</span> callback <span class="token operator">===</span> <span class="token keyword">undefined</span> <span class="token operator">?</span> <span class="token keyword">null</span> <span class="token operator">:</span> callback<span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>callback <span class="token operator">!==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    update<span class="token punctuation">.</span>callback <span class="token operator">=</span> callback<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">enqueueUpdate</span><span class="token punctuation">(</span>current<span class="token punctuation">,</span> update<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">scheduleWork</span><span class="token punctuation">(</span>current<span class="token punctuation">,</span> expirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> expirationTime<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br></div></div><h2 id="schedulework"><a href="#schedulework" class="header-anchor">#</a> scheduleWork</h2> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">scheduleWork</span><span class="token punctuation">(</span><span class="token parameter">fiber<span class="token operator">:</span> Fiber<span class="token punctuation">,</span> expirationTime<span class="token operator">:</span> ExpirationTime</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> root <span class="token operator">=</span> <span class="token function">scheduleWorkToRoot</span><span class="token punctuation">(</span>fiber<span class="token punctuation">,</span> expirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//1.找到更新对应的FiberRoot节点，按照树的结构通过fiber.return一层层的返回，直到找到根节点。在向上找的过程中不断的更新每个节点对应的fiber对象childExpirationTime。并且alternate同步更新。</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>root <span class="token operator">===</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>
+    <span class="token operator">!</span>isWorking <span class="token operator">&amp;&amp;</span>
+    nextRenderExpirationTime <span class="token operator">!==</span> NoWork <span class="token operator">&amp;&amp;</span>
+    expirationTime <span class="token operator">&lt;</span> nextRenderExpirationTime
+  <span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment">//发现当前更新的优先级高于上一个任务，则重置stack，回退任务</span>
+    interruptedBy <span class="token operator">=</span> fiber<span class="token punctuation">;</span>
+    <span class="token function">resetStack</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token function">markPendingPriorityLevel</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> expirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>
+    <span class="token operator">!</span>isWorking <span class="token operator">||</span>
+    isCommitting <span class="token operator">||</span>
+    nextRoot <span class="token operator">!==</span> root
+  <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> rootExpirationTime <span class="token operator">=</span> root<span class="token punctuation">.</span>expirationTime<span class="token punctuation">;</span>
+    <span class="token function">requestWork</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> rootExpirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//请求调度任务</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>nestedUpdateCount <span class="token operator">&gt;</span> <span class="token constant">NESTED_UPDATE_LIMIT</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment">//在某些生命周期函数中setState会造成无限循环，这里是告诉你的代码触发无限循环了</span>
+    nestedUpdateCount <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br></div></div><h2 id="resetstack"><a href="#resetstack" class="header-anchor">#</a> resetStack</h2> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">resetStack</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>nextUnitOfWork <span class="token operator">!==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> interruptedWork <span class="token operator">=</span> nextUnitOfWork<span class="token punctuation">.</span>return<span class="token punctuation">;</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>interruptedWork <span class="token operator">!==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment">//开始一步一步往上恢复，前一个执行的任务需要回退一步，因为现在有更高优先级的任务需要执行</span>
+      <span class="token function">unwindInterruptedWork</span><span class="token punctuation">(</span>interruptedWork<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      interruptedWork <span class="token operator">=</span> interruptedWork<span class="token punctuation">.</span>return<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  nextRoot <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+  nextRenderExpirationTime <span class="token operator">=</span> NoWork<span class="token punctuation">;</span>
+  nextLatestAbsoluteTimeoutMs <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+  nextRenderDidError <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+  nextUnitOfWork <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br></div></div><h3 id="unwindinterruptedwork"><a href="#unwindinterruptedwork" class="header-anchor">#</a> unwindInterruptedWork</h3> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">unwindInterruptedWork</span><span class="token punctuation">(</span><span class="token parameter">interruptedWork<span class="token operator">:</span> Fiber</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">switch</span> <span class="token punctuation">(</span>interruptedWork<span class="token punctuation">.</span>tag<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">case</span> ClassComponent<span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> childContextTypes <span class="token operator">=</span> interruptedWork<span class="token punctuation">.</span>type<span class="token punctuation">.</span>childContextTypes<span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>childContextTypes <span class="token operator">!==</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> childContextTypes <span class="token operator">!==</span> <span class="token keyword">undefined</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">popLegacyContext</span><span class="token punctuation">(</span>interruptedWork<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">case</span> HostRoot<span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token function">popHostContainer</span><span class="token punctuation">(</span>interruptedWork<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">popTopLevelLegacyContextObject</span><span class="token punctuation">(</span>interruptedWork<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">case</span> HostComponent<span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token function">popHostContext</span><span class="token punctuation">(</span>interruptedWork<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">case</span> HostPortal<span class="token operator">:</span>
+      <span class="token function">popHostContainer</span><span class="token punctuation">(</span>interruptedWork<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token keyword">case</span> ContextProvider<span class="token operator">:</span>
+      <span class="token function">popProvider</span><span class="token punctuation">(</span>interruptedWork<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+    <span class="token keyword">default</span><span class="token operator">:</span>
+      <span class="token keyword">break</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br></div></div><h2 id="requestwork"><a href="#requestwork" class="header-anchor">#</a> requestWork</h2> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">requestWork</span><span class="token punctuation">(</span><span class="token parameter">root<span class="token operator">:</span> FiberRoot<span class="token punctuation">,</span> expirationTime<span class="token operator">:</span> ExpirationTime</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">addRootToSchedule</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> expirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//将Root加入到Schedule（addRootToSchedule），如果此root已经调度过（已经在scheduleRoot的单向链表中），可能更新root.expirationTime</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>isRendering<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>isBatchingUpdates<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>isUnbatchingUpdates<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      nextFlushedRoot <span class="token operator">=</span> root<span class="token punctuation">;</span>
+      nextFlushedExpirationTime <span class="token operator">=</span> Sync<span class="token punctuation">;</span>
+      <span class="token function">performWorkOnRoot</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> Sync<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>expirationTime <span class="token operator">===</span> Sync<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">performSyncWork</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//同步任务</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token function">scheduleCallbackWithExpirationTime</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> expirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//异步任务</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br></div></div><h3 id="addroottoschedule"><a href="#addroottoschedule" class="header-anchor">#</a> addRootToSchedule</h3> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">addRootToSchedule</span><span class="token punctuation">(</span><span class="token parameter">root<span class="token operator">:</span> FiberRoot<span class="token punctuation">,</span> expirationTime<span class="token operator">:</span> ExpirationTime</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>root<span class="token punctuation">.</span>nextScheduledRoot <span class="token operator">===</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    root<span class="token punctuation">.</span>expirationTime <span class="token operator">=</span> expirationTime<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>lastScheduledRoot <span class="token operator">===</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment">//当前没有要处理的root</span>
+      firstScheduledRoot <span class="token operator">=</span> lastScheduledRoot <span class="token operator">=</span> root<span class="token punctuation">;</span>
+      root<span class="token punctuation">.</span>nextScheduledRoot <span class="token operator">=</span> root<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      lastScheduledRoot<span class="token punctuation">.</span>nextScheduledRoot <span class="token operator">=</span> root<span class="token punctuation">;</span>
+      lastScheduledRoot <span class="token operator">=</span> root<span class="token punctuation">;</span>
+      lastScheduledRoot<span class="token punctuation">.</span>nextScheduledRoot <span class="token operator">=</span> firstScheduledRoot<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> remainingExpirationTime <span class="token operator">=</span> root<span class="token punctuation">.</span>expirationTime<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>
+      remainingExpirationTime <span class="token operator">===</span> NoWork <span class="token operator">||</span>
+      expirationTime <span class="token operator">&lt;</span> remainingExpirationTime
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      root<span class="token punctuation">.</span>expirationTime <span class="token operator">=</span> expirationTime<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br></div></div><h2 id="performsyncwork"><a href="#performsyncwork" class="header-anchor">#</a> performSyncWork</h2> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">performSyncWork</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">performWork</span><span class="token punctuation">(</span>Sync<span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div><h3 id="schedulecallbackwithexpirationtime"><a href="#schedulecallbackwithexpirationtime" class="header-anchor">#</a> scheduleCallbackWithExpirationTime</h3> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">scheduleCallbackWithExpirationTime</span><span class="token punctuation">(</span>
+  <span class="token parameter">root<span class="token operator">:</span> FiberRoot<span class="token punctuation">,</span>
+  expirationTime<span class="token operator">:</span> ExpirationTime<span class="token punctuation">,</span></span>
+<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>callbackExpirationTime <span class="token operator">!==</span> NoWork<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment">// 判断上一个callback是否执行完毕</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>expirationTime <span class="token operator">&gt;</span> callbackExpirationTime<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment">//当前任务如果优先级小于上个任务就退出</span>
+      <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>callbackID <span class="token operator">!==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">cancelDeferredCallback</span><span class="token punctuation">(</span>callbackID<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token function">startRequestCallbackTimer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  callbackExpirationTime <span class="token operator">=</span> expirationTime<span class="token punctuation">;</span>
+  <span class="token keyword">const</span> currentMs <span class="token operator">=</span> <span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> originalStartTimeMs<span class="token punctuation">;</span><span class="token comment">//当前performance.now() - 程序刚执行时的performance.now()</span>
+  <span class="token keyword">const</span> expirationTimeMs <span class="token operator">=</span> <span class="token function">expirationTimeToMs</span><span class="token punctuation">(</span>expirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//转换ms</span>
+  <span class="token keyword">const</span> timeout <span class="token operator">=</span> expirationTimeMs <span class="token operator">-</span> currentMs<span class="token punctuation">;</span><span class="token comment">//当前任务的延迟过期时间，由过期时间 - 当前任务创建时间 = 超过时代表任务过期需要强制更新</span>
+  callbackID <span class="token operator">=</span> <span class="token function">scheduleDeferredCallback</span><span class="token punctuation">(</span>performAsyncWork<span class="token punctuation">,</span> <span class="token punctuation">{</span>timeout<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//生成一个callbackID，用于关闭任务</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br></div></div><h2 id="performwork"><a href="#performwork" class="header-anchor">#</a> performWork</h2> <p>任务执行</p> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">performWork</span><span class="token punctuation">(</span><span class="token parameter">minExpirationTime<span class="token operator">:</span> ExpirationTime<span class="token punctuation">,</span> dl<span class="token operator">:</span> Deadline <span class="token operator">|</span> <span class="token keyword">null</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  deadline <span class="token operator">=</span> dl<span class="token punctuation">;</span>
+
+  <span class="token function">findHighestPriorityRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>deadline <span class="token operator">!==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment">//同步任务，不考虑帧渲染是否有空余时间，同步任务也没有过期时间</span>
+    <span class="token function">recomputeCurrentRendererTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    currentSchedulerTime <span class="token operator">=</span> currentRendererTime<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>enableUserTimingAPI<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> didExpire <span class="token operator">=</span> nextFlushedExpirationTime <span class="token operator">&lt;</span> currentRendererTime<span class="token punctuation">;</span>
+      <span class="token keyword">const</span> timeout <span class="token operator">=</span> <span class="token function">expirationTimeToMs</span><span class="token punctuation">(</span>nextFlushedExpirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">stopRequestCallbackTimer</span><span class="token punctuation">(</span>didExpire<span class="token punctuation">,</span> timeout<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>
+      nextFlushedRoot <span class="token operator">!==</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span>
+      nextFlushedExpirationTime <span class="token operator">!==</span> NoWork <span class="token operator">&amp;&amp;</span>
+      <span class="token punctuation">(</span>minExpirationTime <span class="token operator">===</span> NoWork <span class="token operator">||</span>
+        minExpirationTime <span class="token operator">&gt;=</span> nextFlushedExpirationTime<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+      <span class="token punctuation">(</span><span class="token operator">!</span>deadlineDidExpire <span class="token operator">||</span> currentRendererTime <span class="token operator">&gt;=</span> nextFlushedExpirationTime<span class="token punctuation">)</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment">//遍历所有的root，并且把所有root中同步的任务全部执行掉</span>
+      <span class="token function">performWorkOnRoot</span><span class="token punctuation">(</span>
+        nextFlushedRoot<span class="token punctuation">,</span>
+        nextFlushedExpirationTime<span class="token punctuation">,</span>
+        currentRendererTime <span class="token operator">&gt;=</span> nextFlushedExpirationTime<span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">findHighestPriorityRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">recomputeCurrentRendererTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      currentSchedulerTime <span class="token operator">=</span> currentRendererTime<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span><span class="token comment">//异步任务</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>
+      nextFlushedRoot <span class="token operator">!==</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span>
+      nextFlushedExpirationTime <span class="token operator">!==</span> NoWork <span class="token operator">&amp;&amp;</span>
+      <span class="token punctuation">(</span>minExpirationTime <span class="token operator">===</span> NoWork <span class="token operator">||</span>
+        minExpirationTime <span class="token operator">&gt;=</span> nextFlushedExpirationTime<span class="token punctuation">)</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment">//遍历所有root，执行完所有root中的过期任务，因为过期任务是必须要执行的。如果这一帧还有空闲时间，尽可能的执行更多任务</span>
+      <span class="token function">performWorkOnRoot</span><span class="token punctuation">(</span>nextFlushedRoot<span class="token punctuation">,</span> nextFlushedExpirationTime<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">findHighestPriorityRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>deadline <span class="token operator">!==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    callbackExpirationTime <span class="token operator">=</span> NoWork<span class="token punctuation">;</span>
+    callbackID <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>nextFlushedExpirationTime <span class="token operator">!==</span> NoWork<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">scheduleCallbackWithExpirationTime</span><span class="token punctuation">(</span>
+      <span class="token punctuation">(</span><span class="token punctuation">(</span>nextFlushedRoot<span class="token operator">:</span> any<span class="token punctuation">)</span><span class="token operator">:</span> FiberRoot<span class="token punctuation">)</span><span class="token punctuation">,</span>
+      nextFlushedExpirationTime<span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// Clean-up.</span>
+  deadline <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+  deadlineDidExpire <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+  <span class="token function">finishRendering</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br></div></div><h2 id="performworkonroot"><a href="#performworkonroot" class="header-anchor">#</a> performWorkOnRoot</h2> <p>执行任务的两个阶段</p> <ul><li>renderRoot渲染阶段</li> <li>completeRoot提交阶段</li></ul> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">performWorkOnRoot</span><span class="token punctuation">(</span>
+  <span class="token parameter">root<span class="token operator">:</span> FiberRoot<span class="token punctuation">,</span>
+  expirationTime<span class="token operator">:</span> ExpirationTime<span class="token punctuation">,</span>
+  isExpired<span class="token operator">:</span> boolean<span class="token punctuation">,</span></span>
+<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  isRendering <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>deadline <span class="token operator">===</span> <span class="token keyword">null</span> <span class="token operator">||</span> isExpired<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment">//同步任务或者任务已经过期，不可以打断任务</span>
+
+    <span class="token keyword">let</span> finishedWork <span class="token operator">=</span> root<span class="token punctuation">.</span>finishedWork<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>finishedWork <span class="token operator">!==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment">//是否存在已经完成的finishedWork,存在就完成它</span>
+      <span class="token function">completeRoot</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> finishedWork<span class="token punctuation">,</span> expirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      root<span class="token punctuation">.</span>finishedWork <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+      <span class="token keyword">const</span> timeoutHandle <span class="token operator">=</span> root<span class="token punctuation">.</span>timeoutHandle<span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>timeoutHandle <span class="token operator">!==</span> noTimeout<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        root<span class="token punctuation">.</span>timeoutHandle <span class="token operator">=</span> noTimeout<span class="token punctuation">;</span>
+        <span class="token function">cancelTimeout</span><span class="token punctuation">(</span>timeoutHandle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">const</span> isYieldy <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+      <span class="token function">renderRoot</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> isYieldy<span class="token punctuation">,</span> isExpired<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      finishedWork <span class="token operator">=</span> root<span class="token punctuation">.</span>finishedWork<span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>finishedWork <span class="token operator">!==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">completeRoot</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> finishedWork<span class="token punctuation">,</span> expirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span><span class="token comment">//异步任务</span>
+    <span class="token keyword">let</span> finishedWork <span class="token operator">=</span> root<span class="token punctuation">.</span>finishedWork<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>finishedWork <span class="token operator">!==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">completeRoot</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> finishedWork<span class="token punctuation">,</span> expirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      root<span class="token punctuation">.</span>finishedWork <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+      <span class="token keyword">const</span> timeoutHandle <span class="token operator">=</span> root<span class="token punctuation">.</span>timeoutHandle<span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>timeoutHandle <span class="token operator">!==</span> noTimeout<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        root<span class="token punctuation">.</span>timeoutHandle <span class="token operator">=</span> noTimeout<span class="token punctuation">;</span>
+        <span class="token function">cancelTimeout</span><span class="token punctuation">(</span>timeoutHandle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">const</span> isYieldy <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span><span class="token comment">//可以中断</span>
+      <span class="token function">renderRoot</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> isYieldy<span class="token punctuation">,</span> isExpired<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      finishedWork <span class="token operator">=</span> root<span class="token punctuation">.</span>finishedWork<span class="token punctuation">;</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>finishedWork <span class="token operator">!==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token function">shouldYield</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token comment">//这一帧还有空余时间，执行completeRoot</span>
+          <span class="token function">completeRoot</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> finishedWork<span class="token punctuation">,</span> expirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span><span class="token comment">//没有空余时间，等下一帧</span>
+          root<span class="token punctuation">.</span>finishedWork <span class="token operator">=</span> finishedWork<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  isRendering <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br></div></div><h2 id="renderroot"><a href="#renderroot" class="header-anchor">#</a> renderRoot</h2> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">renderRoot</span><span class="token punctuation">(</span>
+  <span class="token parameter">root<span class="token operator">:</span> FiberRoot<span class="token punctuation">,</span>
+  isYieldy<span class="token operator">:</span> boolean<span class="token punctuation">,</span>
+  isExpired<span class="token operator">:</span> boolean<span class="token punctuation">,</span></span>
+<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+  isWorking <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+  ReactCurrentOwner<span class="token punctuation">.</span>currentDispatcher <span class="token operator">=</span> Dispatcher<span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> expirationTime <span class="token operator">=</span> root<span class="token punctuation">.</span>nextExpirationTimeToWorkOn<span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>
+    expirationTime <span class="token operator">!==</span> nextRenderExpirationTime <span class="token operator">||</span>
+    root <span class="token operator">!==</span> nextRoot <span class="token operator">||</span>
+    nextUnitOfWork <span class="token operator">===</span> <span class="token keyword">null</span>
+  <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">resetStack</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    nextRoot <span class="token operator">=</span> root<span class="token punctuation">;</span>
+    nextRenderExpirationTime <span class="token operator">=</span> expirationTime<span class="token punctuation">;</span>
+    nextUnitOfWork <span class="token operator">=</span> <span class="token function">createWorkInProgress</span><span class="token punctuation">(</span>
+      nextRoot<span class="token punctuation">.</span>current<span class="token punctuation">,</span>
+      <span class="token keyword">null</span><span class="token punctuation">,</span>
+      nextRenderExpirationTime<span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    root<span class="token punctuation">.</span>pendingCommitExpirationTime <span class="token operator">=</span> NoWork<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>enableSchedulerTracing<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> interactions<span class="token operator">:</span> Set<span class="token operator">&lt;</span>Interaction<span class="token operator">&gt;</span> <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Set</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      root<span class="token punctuation">.</span>pendingInteractionMap<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>
+        <span class="token punctuation">(</span><span class="token parameter">scheduledInteractions<span class="token punctuation">,</span> scheduledExpirationTime</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>scheduledExpirationTime <span class="token operator">&lt;=</span> expirationTime<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            scheduledInteractions<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">interaction</span> <span class="token operator">=&gt;</span>
+              interactions<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>interaction<span class="token punctuation">)</span><span class="token punctuation">,</span>
+            <span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      root<span class="token punctuation">.</span>memoizedInteractions <span class="token operator">=</span> interactions<span class="token punctuation">;</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>interactions<span class="token punctuation">.</span>size <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> subscriber <span class="token operator">=</span> __subscriberRef<span class="token punctuation">.</span>current<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>subscriber <span class="token operator">!==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">const</span> threadID <span class="token operator">=</span> <span class="token function">computeThreadID</span><span class="token punctuation">(</span>
+            expirationTime<span class="token punctuation">,</span>
+            root<span class="token punctuation">.</span>interactionThreadID<span class="token punctuation">,</span>
+          <span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            subscriber<span class="token punctuation">.</span><span class="token function">onWorkStarted</span><span class="token punctuation">(</span>interactions<span class="token punctuation">,</span> threadID<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>hasUnhandledError<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              hasUnhandledError <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+              unhandledError <span class="token operator">=</span> error<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">let</span> prevInteractions<span class="token operator">:</span> Set<span class="token operator">&lt;</span>Interaction<span class="token operator">&gt;</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">null</span><span class="token operator">:</span> any<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>enableSchedulerTracing<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    prevInteractions <span class="token operator">=</span> __interactionsRef<span class="token punctuation">.</span>current<span class="token punctuation">;</span>
+    __interactionsRef<span class="token punctuation">.</span>current <span class="token operator">=</span> root<span class="token punctuation">.</span>memoizedInteractions<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">let</span> didFatal <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+  <span class="token function">startWorkLoopTimer</span><span class="token punctuation">(</span>nextUnitOfWork<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">do</span> <span class="token punctuation">{</span>
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+      <span class="token function">workLoop</span><span class="token punctuation">(</span>isYieldy<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span>thrownValue<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>nextUnitOfWork <span class="token operator">===</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        didFatal <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token function">onUncaughtError</span><span class="token punctuation">(</span>thrownValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+
+        <span class="token keyword">const</span> failedUnitOfWork<span class="token operator">:</span> Fiber <span class="token operator">=</span> nextUnitOfWork<span class="token punctuation">;</span>
+
+        <span class="token keyword">const</span> sourceFiber<span class="token operator">:</span> Fiber <span class="token operator">=</span> nextUnitOfWork<span class="token punctuation">;</span>
+        <span class="token keyword">let</span> returnFiber <span class="token operator">=</span> sourceFiber<span class="token punctuation">.</span>return<span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>returnFiber <span class="token operator">===</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          didFatal <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+          <span class="token function">onUncaughtError</span><span class="token punctuation">(</span>thrownValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+          <span class="token function">throwException</span><span class="token punctuation">(</span>
+            root<span class="token punctuation">,</span>
+            returnFiber<span class="token punctuation">,</span>
+            sourceFiber<span class="token punctuation">,</span>
+            thrownValue<span class="token punctuation">,</span>
+            nextRenderExpirationTime<span class="token punctuation">,</span>
+          <span class="token punctuation">)</span><span class="token punctuation">;</span>
+          nextUnitOfWork <span class="token operator">=</span> <span class="token function">completeUnitOfWork</span><span class="token punctuation">(</span>sourceFiber<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">continue</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">break</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>enableSchedulerTracing<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// Traced work is done for now; restore the previous interactions.</span>
+    __interactionsRef<span class="token punctuation">.</span>current <span class="token operator">=</span> prevInteractions<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// We're done performing work. Time to clean up.</span>
+  isWorking <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+  ReactCurrentOwner<span class="token punctuation">.</span>currentDispatcher <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+  <span class="token function">resetContextDependences</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment">// Yield back to main thread.</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>didFatal<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> didCompleteRoot <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token function">stopWorkLoopTimer</span><span class="token punctuation">(</span>interruptedBy<span class="token punctuation">,</span> didCompleteRoot<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    interruptedBy <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+
+    nextRoot <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token function">onFatal</span><span class="token punctuation">(</span>root<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>nextUnitOfWork <span class="token operator">!==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> didCompleteRoot <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token function">stopWorkLoopTimer</span><span class="token punctuation">(</span>interruptedBy<span class="token punctuation">,</span> didCompleteRoot<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    interruptedBy <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token function">onYield</span><span class="token punctuation">(</span>root<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// We completed the whole tree.</span>
+  <span class="token keyword">const</span> didCompleteRoot <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+  <span class="token function">stopWorkLoopTimer</span><span class="token punctuation">(</span>interruptedBy<span class="token punctuation">,</span> didCompleteRoot<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> rootWorkInProgress <span class="token operator">=</span> root<span class="token punctuation">.</span>current<span class="token punctuation">.</span>alternate<span class="token punctuation">;</span>
+
+  nextRoot <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+  interruptedBy <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>nextRenderDidError<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// There was an error</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">hasLowerPriorityWork</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> expirationTime<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">markSuspendedPriorityLevel</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> expirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">const</span> suspendedExpirationTime <span class="token operator">=</span> expirationTime<span class="token punctuation">;</span>
+      <span class="token keyword">const</span> rootExpirationTime <span class="token operator">=</span> root<span class="token punctuation">.</span>expirationTime<span class="token punctuation">;</span>
+      <span class="token function">onSuspend</span><span class="token punctuation">(</span>
+        root<span class="token punctuation">,</span>
+        rootWorkInProgress<span class="token punctuation">,</span>
+        suspendedExpirationTime<span class="token punctuation">,</span>
+        rootExpirationTime<span class="token punctuation">,</span>
+        <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment">// Indicates no timeout</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>
+      <span class="token operator">!</span>root<span class="token punctuation">.</span>didError <span class="token operator">&amp;&amp;</span>
+      <span class="token operator">!</span>isExpired
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      root<span class="token punctuation">.</span>didError <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+      <span class="token keyword">const</span> suspendedExpirationTime <span class="token operator">=</span> <span class="token punctuation">(</span>root<span class="token punctuation">.</span>nextExpirationTimeToWorkOn <span class="token operator">=</span> expirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">const</span> rootExpirationTime <span class="token operator">=</span> <span class="token punctuation">(</span>root<span class="token punctuation">.</span>expirationTime <span class="token operator">=</span> Sync<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">onSuspend</span><span class="token punctuation">(</span>
+        root<span class="token punctuation">,</span>
+        rootWorkInProgress<span class="token punctuation">,</span>
+        suspendedExpirationTime<span class="token punctuation">,</span>
+        rootExpirationTime<span class="token punctuation">,</span>
+        <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment">// Indicates no timeout</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>isExpired <span class="token operator">&amp;&amp;</span> nextLatestAbsoluteTimeoutMs <span class="token operator">!==</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> suspendedExpirationTime <span class="token operator">=</span> expirationTime<span class="token punctuation">;</span>
+    <span class="token function">markSuspendedPriorityLevel</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> suspendedExpirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">const</span> earliestExpirationTime <span class="token operator">=</span> <span class="token function">findEarliestOutstandingPriorityLevel</span><span class="token punctuation">(</span>
+      root<span class="token punctuation">,</span>
+      expirationTime<span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> earliestExpirationTimeMs <span class="token operator">=</span> <span class="token function">expirationTimeToMs</span><span class="token punctuation">(</span>earliestExpirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>earliestExpirationTimeMs <span class="token operator">&lt;</span> nextLatestAbsoluteTimeoutMs<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      nextLatestAbsoluteTimeoutMs <span class="token operator">=</span> earliestExpirationTimeMs<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">const</span> currentTimeMs <span class="token operator">=</span> <span class="token function">expirationTimeToMs</span><span class="token punctuation">(</span><span class="token function">requestCurrentTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">let</span> msUntilTimeout <span class="token operator">=</span> nextLatestAbsoluteTimeoutMs <span class="token operator">-</span> currentTimeMs<span class="token punctuation">;</span>
+    msUntilTimeout <span class="token operator">=</span> msUntilTimeout <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">?</span> <span class="token number">0</span> <span class="token operator">:</span> msUntilTimeout<span class="token punctuation">;</span>
+
+
+    <span class="token keyword">const</span> rootExpirationTime <span class="token operator">=</span> root<span class="token punctuation">.</span>expirationTime<span class="token punctuation">;</span>
+    <span class="token function">onSuspend</span><span class="token punctuation">(</span>
+      root<span class="token punctuation">,</span>
+      rootWorkInProgress<span class="token punctuation">,</span>
+      suspendedExpirationTime<span class="token punctuation">,</span>
+      rootExpirationTime<span class="token punctuation">,</span>
+      msUntilTimeout<span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">onComplete</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> rootWorkInProgress<span class="token punctuation">,</span> expirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br><span class="line-number">98</span><br><span class="line-number">99</span><br><span class="line-number">100</span><br><span class="line-number">101</span><br><span class="line-number">102</span><br><span class="line-number">103</span><br><span class="line-number">104</span><br><span class="line-number">105</span><br><span class="line-number">106</span><br><span class="line-number">107</span><br><span class="line-number">108</span><br><span class="line-number">109</span><br><span class="line-number">110</span><br><span class="line-number">111</span><br><span class="line-number">112</span><br><span class="line-number">113</span><br><span class="line-number">114</span><br><span class="line-number">115</span><br><span class="line-number">116</span><br><span class="line-number">117</span><br><span class="line-number">118</span><br><span class="line-number">119</span><br><span class="line-number">120</span><br><span class="line-number">121</span><br><span class="line-number">122</span><br><span class="line-number">123</span><br><span class="line-number">124</span><br><span class="line-number">125</span><br><span class="line-number">126</span><br><span class="line-number">127</span><br><span class="line-number">128</span><br><span class="line-number">129</span><br><span class="line-number">130</span><br><span class="line-number">131</span><br><span class="line-number">132</span><br><span class="line-number">133</span><br><span class="line-number">134</span><br><span class="line-number">135</span><br><span class="line-number">136</span><br><span class="line-number">137</span><br><span class="line-number">138</span><br><span class="line-number">139</span><br><span class="line-number">140</span><br><span class="line-number">141</span><br><span class="line-number">142</span><br><span class="line-number">143</span><br><span class="line-number">144</span><br><span class="line-number">145</span><br><span class="line-number">146</span><br><span class="line-number">147</span><br><span class="line-number">148</span><br><span class="line-number">149</span><br><span class="line-number">150</span><br><span class="line-number">151</span><br><span class="line-number">152</span><br><span class="line-number">153</span><br><span class="line-number">154</span><br><span class="line-number">155</span><br><span class="line-number">156</span><br><span class="line-number">157</span><br><span class="line-number">158</span><br><span class="line-number">159</span><br><span class="line-number">160</span><br><span class="line-number">161</span><br><span class="line-number">162</span><br><span class="line-number">163</span><br><span class="line-number">164</span><br><span class="line-number">165</span><br><span class="line-number">166</span><br><span class="line-number">167</span><br><span class="line-number">168</span><br><span class="line-number">169</span><br><span class="line-number">170</span><br><span class="line-number">171</span><br><span class="line-number">172</span><br><span class="line-number">173</span><br><span class="line-number">174</span><br><span class="line-number">175</span><br><span class="line-number">176</span><br><span class="line-number">177</span><br><span class="line-number">178</span><br><span class="line-number">179</span><br><span class="line-number">180</span><br><span class="line-number">181</span><br><span class="line-number">182</span><br><span class="line-number">183</span><br><span class="line-number">184</span><br><span class="line-number">185</span><br><span class="line-number">186</span><br><span class="line-number">187</span><br><span class="line-number">188</span><br><span class="line-number">189</span><br><span class="line-number">190</span><br><span class="line-number">191</span><br><span class="line-number">192</span><br><span class="line-number">193</span><br><span class="line-number">194</span><br><span class="line-number">195</span><br><span class="line-number">196</span><br><span class="line-number">197</span><br><span class="line-number">198</span><br><span class="line-number">199</span><br><span class="line-number">200</span><br><span class="line-number">201</span><br></div></div><h2 id="workloop"><a href="#workloop" class="header-anchor">#</a> workLoop</h2> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">workLoop</span><span class="token punctuation">(</span><span class="token parameter">isYieldy</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>isYieldy<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>nextUnitOfWork <span class="token operator">!==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      nextUnitOfWork <span class="token operator">=</span> <span class="token function">performUnitOfWork</span><span class="token punctuation">(</span>nextUnitOfWork<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token keyword">while</span> <span class="token punctuation">(</span>nextUnitOfWork <span class="token operator">!==</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token function">shouldYield</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      nextUnitOfWork <span class="token operator">=</span> <span class="token function">performUnitOfWork</span><span class="token punctuation">(</span>nextUnitOfWork<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br></div></div><h2 id="performunitofwork"><a href="#performunitofwork" class="header-anchor">#</a> performUnitOfWork</h2> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">performUnitOfWork</span><span class="token punctuation">(</span><span class="token parameter">workInProgress<span class="token operator">:</span> Fiber</span><span class="token punctuation">)</span><span class="token operator">:</span> Fiber <span class="token operator">|</span> <span class="token keyword">null</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> current <span class="token operator">=</span> workInProgress<span class="token punctuation">.</span>alternate<span class="token punctuation">;</span>
+
+  <span class="token function">startWorkTimer</span><span class="token punctuation">(</span>workInProgress<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">let</span> next<span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>enableProfilerTimer<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>workInProgress<span class="token punctuation">.</span>mode <span class="token operator">&amp;</span> ProfileMode<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">startProfilerTimer</span><span class="token punctuation">(</span>workInProgress<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    next <span class="token operator">=</span> <span class="token function">beginWork</span><span class="token punctuation">(</span>current<span class="token punctuation">,</span> workInProgress<span class="token punctuation">,</span> nextRenderExpirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    workInProgress<span class="token punctuation">.</span>memoizedProps <span class="token operator">=</span> workInProgress<span class="token punctuation">.</span>pendingProps<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>workInProgress<span class="token punctuation">.</span>mode <span class="token operator">&amp;</span> ProfileMode<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">stopProfilerTimerIfRunningAndRecordDelta</span><span class="token punctuation">(</span>workInProgress<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    next <span class="token operator">=</span> <span class="token function">beginWork</span><span class="token punctuation">(</span>current<span class="token punctuation">,</span> workInProgress<span class="token punctuation">,</span> nextRenderExpirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    workInProgress<span class="token punctuation">.</span>memoizedProps <span class="token operator">=</span> workInProgress<span class="token punctuation">.</span>pendingProps<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>next <span class="token operator">===</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    next <span class="token operator">=</span> <span class="token function">completeUnitOfWork</span><span class="token punctuation">(</span>workInProgress<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  ReactCurrentOwner<span class="token punctuation">.</span>current <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> next<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br></div></div><h2 id="beginwork"><a href="#beginwork" class="header-anchor">#</a> beginWork</h2> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">beginWork</span><span class="token punctuation">(</span>
+  <span class="token parameter">current<span class="token operator">:</span> Fiber <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+  workInProgress<span class="token operator">:</span> Fiber<span class="token punctuation">,</span>
+  renderExpirationTime<span class="token operator">:</span> ExpirationTime<span class="token punctuation">,</span></span>
+<span class="token punctuation">)</span><span class="token operator">:</span> Fiber <span class="token operator">|</span> <span class="token keyword">null</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> updateExpirationTime <span class="token operator">=</span> workInProgress<span class="token punctuation">.</span>expirationTime<span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>current <span class="token operator">!==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token comment">// ------如果满足以下条件React会判断当前节点是不需要更新的---------</span>
+    <span class="token keyword">const</span> oldProps <span class="token operator">=</span> current<span class="token punctuation">.</span>memoizedProps<span class="token punctuation">;</span><span class="token comment">//老的props</span>
+    <span class="token keyword">const</span> newProps <span class="token operator">=</span> workInProgress<span class="token punctuation">.</span>pendingProps<span class="token punctuation">;</span><span class="token comment">//新的props</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>
+      oldProps <span class="token operator">===</span> newProps <span class="token operator">&amp;&amp;</span> <span class="token comment">// 新旧props比较</span>
+      <span class="token operator">!</span><span class="token function">hasLegacyContextChanged</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token comment">// 是否有老版本的context使用并且发生变化</span>
+      <span class="token punctuation">(</span>updateExpirationTime <span class="token operator">===</span> NoWork <span class="token operator">||</span>
+        updateExpirationTime <span class="token operator">&gt;</span> renderExpirationTime<span class="token punctuation">)</span><span class="token comment">//当前节点是否需要更新以及他的更新优先级是否在当前更新优先级之前</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token comment">// ------------------------------------------------------------</span>
+      <span class="token keyword">switch</span> <span class="token punctuation">(</span>workInProgress<span class="token punctuation">.</span>tag<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">case</span> HostRoot<span class="token operator">:</span>
+          <span class="token function">pushHostRootContext</span><span class="token punctuation">(</span>workInProgress<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token function">resetHydrationState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token keyword">case</span> HostComponent<span class="token operator">:</span>
+          <span class="token function">pushHostContext</span><span class="token punctuation">(</span>workInProgress<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token keyword">case</span> ClassComponent<span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token keyword">const</span> Component <span class="token operator">=</span> workInProgress<span class="token punctuation">.</span>type<span class="token punctuation">;</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isLegacyContextProvider</span><span class="token punctuation">(</span>Component<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">pushLegacyContextProvider</span><span class="token punctuation">(</span>workInProgress<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+          <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">case</span> HostPortal<span class="token operator">:</span>
+          <span class="token function">pushHostContainer</span><span class="token punctuation">(</span>
+            workInProgress<span class="token punctuation">,</span>
+            workInProgress<span class="token punctuation">.</span>stateNode<span class="token punctuation">.</span>containerInfo<span class="token punctuation">,</span>
+          <span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token keyword">case</span> ContextProvider<span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token keyword">const</span> newValue <span class="token operator">=</span> workInProgress<span class="token punctuation">.</span>memoizedProps<span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+          <span class="token function">pushProvider</span><span class="token punctuation">(</span>workInProgress<span class="token punctuation">,</span> newValue<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">case</span> Profiler<span class="token operator">:</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>enableProfilerTimer<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            workInProgress<span class="token punctuation">.</span>effectTag <span class="token operator">|=</span> Update<span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+          <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token keyword">case</span> SuspenseComponent<span class="token operator">:</span> <span class="token punctuation">{</span>
+          <span class="token keyword">const</span> state<span class="token operator">:</span> SuspenseState <span class="token operator">|</span> <span class="token keyword">null</span> <span class="token operator">=</span> workInProgress<span class="token punctuation">.</span>memoizedState<span class="token punctuation">;</span>
+          <span class="token keyword">const</span> didTimeout <span class="token operator">=</span> state <span class="token operator">!==</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> state<span class="token punctuation">.</span>didTimeout<span class="token punctuation">;</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>didTimeout<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> primaryChildFragment<span class="token operator">:</span> Fiber <span class="token operator">=</span> <span class="token punctuation">(</span>workInProgress<span class="token punctuation">.</span>child<span class="token operator">:</span> any<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">const</span> primaryChildExpirationTime <span class="token operator">=</span>
+              primaryChildFragment<span class="token punctuation">.</span>childExpirationTime<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>
+              primaryChildExpirationTime <span class="token operator">!==</span> NoWork <span class="token operator">&amp;&amp;</span>
+              primaryChildExpirationTime <span class="token operator">&lt;=</span> renderExpirationTime
+            <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+              <span class="token keyword">return</span> <span class="token function">updateSuspenseComponent</span><span class="token punctuation">(</span>
+                current<span class="token punctuation">,</span>
+                workInProgress<span class="token punctuation">,</span>
+                renderExpirationTime<span class="token punctuation">,</span>
+              <span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+              <span class="token keyword">const</span> child <span class="token operator">=</span> <span class="token function">bailoutOnAlreadyFinishedWork</span><span class="token punctuation">(</span>
+                current<span class="token punctuation">,</span>
+                workInProgress<span class="token punctuation">,</span>
+                renderExpirationTime<span class="token punctuation">,</span>
+              <span class="token punctuation">)</span><span class="token punctuation">;</span>
+              <span class="token keyword">if</span> <span class="token punctuation">(</span>child <span class="token operator">!==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> child<span class="token punctuation">.</span>sibling<span class="token punctuation">;</span>
+              <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+              <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+          <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">return</span> <span class="token function">bailoutOnAlreadyFinishedWork</span><span class="token punctuation">(</span>
+        current<span class="token punctuation">,</span>
+        workInProgress<span class="token punctuation">,</span>
+        renderExpirationTime<span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// Before entering the begin phase, clear the expiration time.</span>
+  workInProgress<span class="token punctuation">.</span>expirationTime <span class="token operator">=</span> NoWork<span class="token punctuation">;</span>
+
+  <span class="token keyword">switch</span> <span class="token punctuation">(</span>workInProgress<span class="token punctuation">.</span>tag<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">case</span> IndeterminateComponent<span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> elementType <span class="token operator">=</span> workInProgress<span class="token punctuation">.</span>elementType<span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token function">mountIndeterminateComponent</span><span class="token punctuation">(</span>
+        current<span class="token punctuation">,</span>
+        workInProgress<span class="token punctuation">,</span>
+        elementType<span class="token punctuation">,</span>
+        renderExpirationTime<span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">case</span> LazyComponent<span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> elementType <span class="token operator">=</span> workInProgress<span class="token punctuation">.</span>elementType<span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token function">mountLazyComponent</span><span class="token punctuation">(</span>
+        current<span class="token punctuation">,</span>
+        workInProgress<span class="token punctuation">,</span>
+        elementType<span class="token punctuation">,</span>
+        updateExpirationTime<span class="token punctuation">,</span>
+        renderExpirationTime<span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">case</span> FunctionComponent<span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> Component <span class="token operator">=</span> workInProgress<span class="token punctuation">.</span>type<span class="token punctuation">;</span>
+      <span class="token keyword">const</span> unresolvedProps <span class="token operator">=</span> workInProgress<span class="token punctuation">.</span>pendingProps<span class="token punctuation">;</span>
+      <span class="token keyword">const</span> resolvedProps <span class="token operator">=</span>
+        workInProgress<span class="token punctuation">.</span>elementType <span class="token operator">===</span> Component
+          <span class="token operator">?</span> unresolvedProps
+          <span class="token operator">:</span> <span class="token function">resolveDefaultProps</span><span class="token punctuation">(</span>Component<span class="token punctuation">,</span> unresolvedProps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token function">updateFunctionComponent</span><span class="token punctuation">(</span>
+        current<span class="token punctuation">,</span>
+        workInProgress<span class="token punctuation">,</span>
+        Component<span class="token punctuation">,</span>
+        resolvedProps<span class="token punctuation">,</span>
+        renderExpirationTime<span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">case</span> ClassComponent<span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> Component <span class="token operator">=</span> workInProgress<span class="token punctuation">.</span>type<span class="token punctuation">;</span>
+      <span class="token keyword">const</span> unresolvedProps <span class="token operator">=</span> workInProgress<span class="token punctuation">.</span>pendingProps<span class="token punctuation">;</span>
+      <span class="token keyword">const</span> resolvedProps <span class="token operator">=</span>
+        workInProgress<span class="token punctuation">.</span>elementType <span class="token operator">===</span> Component
+          <span class="token operator">?</span> unresolvedProps
+          <span class="token operator">:</span> <span class="token function">resolveDefaultProps</span><span class="token punctuation">(</span>Component<span class="token punctuation">,</span> unresolvedProps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token function">updateClassComponent</span><span class="token punctuation">(</span>
+        current<span class="token punctuation">,</span>
+        workInProgress<span class="token punctuation">,</span>
+        Component<span class="token punctuation">,</span>
+        resolvedProps<span class="token punctuation">,</span>
+        renderExpirationTime<span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">case</span> HostRoot<span class="token operator">:</span>
+      <span class="token keyword">return</span> <span class="token function">updateHostRoot</span><span class="token punctuation">(</span>current<span class="token punctuation">,</span> workInProgress<span class="token punctuation">,</span> renderExpirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">case</span> HostComponent<span class="token operator">:</span>
+      <span class="token keyword">return</span> <span class="token function">updateHostComponent</span><span class="token punctuation">(</span>current<span class="token punctuation">,</span> workInProgress<span class="token punctuation">,</span> renderExpirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">case</span> HostText<span class="token operator">:</span>
+      <span class="token keyword">return</span> <span class="token function">updateHostText</span><span class="token punctuation">(</span>current<span class="token punctuation">,</span> workInProgress<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">case</span> SuspenseComponent<span class="token operator">:</span>
+      <span class="token keyword">return</span> <span class="token function">updateSuspenseComponent</span><span class="token punctuation">(</span>
+        current<span class="token punctuation">,</span>
+        workInProgress<span class="token punctuation">,</span>
+        renderExpirationTime<span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">case</span> HostPortal<span class="token operator">:</span>
+      <span class="token keyword">return</span> <span class="token function">updatePortalComponent</span><span class="token punctuation">(</span>
+        current<span class="token punctuation">,</span>
+        workInProgress<span class="token punctuation">,</span>
+        renderExpirationTime<span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">case</span> ForwardRef<span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> type <span class="token operator">=</span> workInProgress<span class="token punctuation">.</span>type<span class="token punctuation">;</span>
+      <span class="token keyword">const</span> unresolvedProps <span class="token operator">=</span> workInProgress<span class="token punctuation">.</span>pendingProps<span class="token punctuation">;</span>
+      <span class="token keyword">const</span> resolvedProps <span class="token operator">=</span>
+        workInProgress<span class="token punctuation">.</span>elementType <span class="token operator">===</span> type
+          <span class="token operator">?</span> unresolvedProps
+          <span class="token operator">:</span> <span class="token function">resolveDefaultProps</span><span class="token punctuation">(</span>type<span class="token punctuation">,</span> unresolvedProps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token function">updateForwardRef</span><span class="token punctuation">(</span>
+        current<span class="token punctuation">,</span>
+        workInProgress<span class="token punctuation">,</span>
+        type<span class="token punctuation">,</span>
+        resolvedProps<span class="token punctuation">,</span>
+        renderExpirationTime<span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">case</span> Fragment<span class="token operator">:</span>
+      <span class="token keyword">return</span> <span class="token function">updateFragment</span><span class="token punctuation">(</span>current<span class="token punctuation">,</span> workInProgress<span class="token punctuation">,</span> renderExpirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">case</span> Mode<span class="token operator">:</span>
+      <span class="token keyword">return</span> <span class="token function">updateMode</span><span class="token punctuation">(</span>current<span class="token punctuation">,</span> workInProgress<span class="token punctuation">,</span> renderExpirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">case</span> Profiler<span class="token operator">:</span>
+      <span class="token keyword">return</span> <span class="token function">updateProfiler</span><span class="token punctuation">(</span>current<span class="token punctuation">,</span> workInProgress<span class="token punctuation">,</span> renderExpirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">case</span> ContextProvider<span class="token operator">:</span>
+      <span class="token keyword">return</span> <span class="token function">updateContextProvider</span><span class="token punctuation">(</span>
+        current<span class="token punctuation">,</span>
+        workInProgress<span class="token punctuation">,</span>
+        renderExpirationTime<span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">case</span> ContextConsumer<span class="token operator">:</span>
+      <span class="token keyword">return</span> <span class="token function">updateContextConsumer</span><span class="token punctuation">(</span>
+        current<span class="token punctuation">,</span>
+        workInProgress<span class="token punctuation">,</span>
+        renderExpirationTime<span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">case</span> MemoComponent<span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> type <span class="token operator">=</span> workInProgress<span class="token punctuation">.</span>type<span class="token punctuation">;</span>
+      <span class="token keyword">const</span> unresolvedProps <span class="token operator">=</span> workInProgress<span class="token punctuation">.</span>pendingProps<span class="token punctuation">;</span>
+      <span class="token keyword">const</span> resolvedProps <span class="token operator">=</span> <span class="token function">resolveDefaultProps</span><span class="token punctuation">(</span>type<span class="token punctuation">.</span>type<span class="token punctuation">,</span> unresolvedProps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token function">updateMemoComponent</span><span class="token punctuation">(</span>
+        current<span class="token punctuation">,</span>
+        workInProgress<span class="token punctuation">,</span>
+        type<span class="token punctuation">,</span>
+        resolvedProps<span class="token punctuation">,</span>
+        updateExpirationTime<span class="token punctuation">,</span>
+        renderExpirationTime<span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">case</span> SimpleMemoComponent<span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token function">updateSimpleMemoComponent</span><span class="token punctuation">(</span>
+        current<span class="token punctuation">,</span>
+        workInProgress<span class="token punctuation">,</span>
+        workInProgress<span class="token punctuation">.</span>type<span class="token punctuation">,</span>
+        workInProgress<span class="token punctuation">.</span>pendingProps<span class="token punctuation">,</span>
+        updateExpirationTime<span class="token punctuation">,</span>
+        renderExpirationTime<span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">case</span> IncompleteClassComponent<span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> Component <span class="token operator">=</span> workInProgress<span class="token punctuation">.</span>type<span class="token punctuation">;</span>
+      <span class="token keyword">const</span> unresolvedProps <span class="token operator">=</span> workInProgress<span class="token punctuation">.</span>pendingProps<span class="token punctuation">;</span>
+      <span class="token keyword">const</span> resolvedProps <span class="token operator">=</span>
+        workInProgress<span class="token punctuation">.</span>elementType <span class="token operator">===</span> Component
+          <span class="token operator">?</span> unresolvedProps
+          <span class="token operator">:</span> <span class="token function">resolveDefaultProps</span><span class="token punctuation">(</span>Component<span class="token punctuation">,</span> unresolvedProps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> <span class="token function">mountIncompleteClassComponent</span><span class="token punctuation">(</span>
+        current<span class="token punctuation">,</span>
+        workInProgress<span class="token punctuation">,</span>
+        Component<span class="token punctuation">,</span>
+        resolvedProps<span class="token punctuation">,</span>
+        renderExpirationTime<span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">default</span><span class="token operator">:</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br><span class="line-number">98</span><br><span class="line-number">99</span><br><span class="line-number">100</span><br><span class="line-number">101</span><br><span class="line-number">102</span><br><span class="line-number">103</span><br><span class="line-number">104</span><br><span class="line-number">105</span><br><span class="line-number">106</span><br><span class="line-number">107</span><br><span class="line-number">108</span><br><span class="line-number">109</span><br><span class="line-number">110</span><br><span class="line-number">111</span><br><span class="line-number">112</span><br><span class="line-number">113</span><br><span class="line-number">114</span><br><span class="line-number">115</span><br><span class="line-number">116</span><br><span class="line-number">117</span><br><span class="line-number">118</span><br><span class="line-number">119</span><br><span class="line-number">120</span><br><span class="line-number">121</span><br><span class="line-number">122</span><br><span class="line-number">123</span><br><span class="line-number">124</span><br><span class="line-number">125</span><br><span class="line-number">126</span><br><span class="line-number">127</span><br><span class="line-number">128</span><br><span class="line-number">129</span><br><span class="line-number">130</span><br><span class="line-number">131</span><br><span class="line-number">132</span><br><span class="line-number">133</span><br><span class="line-number">134</span><br><span class="line-number">135</span><br><span class="line-number">136</span><br><span class="line-number">137</span><br><span class="line-number">138</span><br><span class="line-number">139</span><br><span class="line-number">140</span><br><span class="line-number">141</span><br><span class="line-number">142</span><br><span class="line-number">143</span><br><span class="line-number">144</span><br><span class="line-number">145</span><br><span class="line-number">146</span><br><span class="line-number">147</span><br><span class="line-number">148</span><br><span class="line-number">149</span><br><span class="line-number">150</span><br><span class="line-number">151</span><br><span class="line-number">152</span><br><span class="line-number">153</span><br><span class="line-number">154</span><br><span class="line-number">155</span><br><span class="line-number">156</span><br><span class="line-number">157</span><br><span class="line-number">158</span><br><span class="line-number">159</span><br><span class="line-number">160</span><br><span class="line-number">161</span><br><span class="line-number">162</span><br><span class="line-number">163</span><br><span class="line-number">164</span><br><span class="line-number">165</span><br><span class="line-number">166</span><br><span class="line-number">167</span><br><span class="line-number">168</span><br><span class="line-number">169</span><br><span class="line-number">170</span><br><span class="line-number">171</span><br><span class="line-number">172</span><br><span class="line-number">173</span><br><span class="line-number">174</span><br><span class="line-number">175</span><br><span class="line-number">176</span><br><span class="line-number">177</span><br><span class="line-number">178</span><br><span class="line-number">179</span><br><span class="line-number">180</span><br><span class="line-number">181</span><br><span class="line-number">182</span><br><span class="line-number">183</span><br><span class="line-number">184</span><br><span class="line-number">185</span><br><span class="line-number">186</span><br><span class="line-number">187</span><br><span class="line-number">188</span><br><span class="line-number">189</span><br><span class="line-number">190</span><br><span class="line-number">191</span><br><span class="line-number">192</span><br><span class="line-number">193</span><br><span class="line-number">194</span><br><span class="line-number">195</span><br><span class="line-number">196</span><br><span class="line-number">197</span><br><span class="line-number">198</span><br><span class="line-number">199</span><br><span class="line-number">200</span><br><span class="line-number">201</span><br><span class="line-number">202</span><br><span class="line-number">203</span><br><span class="line-number">204</span><br><span class="line-number">205</span><br><span class="line-number">206</span><br><span class="line-number">207</span><br><span class="line-number">208</span><br><span class="line-number">209</span><br><span class="line-number">210</span><br><span class="line-number">211</span><br><span class="line-number">212</span><br><span class="line-number">213</span><br><span class="line-number">214</span><br><span class="line-number">215</span><br><span class="line-number">216</span><br><span class="line-number">217</span><br><span class="line-number">218</span><br><span class="line-number">219</span><br><span class="line-number">220</span><br><span class="line-number">221</span><br><span class="line-number">222</span><br><span class="line-number">223</span><br><span class="line-number">224</span><br><span class="line-number">225</span><br><span class="line-number">226</span><br><span class="line-number">227</span><br><span class="line-number">228</span><br><span class="line-number">229</span><br><span class="line-number">230</span><br><span class="line-number">231</span><br><span class="line-number">232</span><br><span class="line-number">233</span><br><span class="line-number">234</span><br></div></div><h2 id="mountindeterminatecomponent"><a href="#mountindeterminatecomponent" class="header-anchor">#</a> mountIndeterminateComponent</h2> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">function</span> <span class="token function">mountIndeterminateComponent</span><span class="token punctuation">(</span>
+  <span class="token parameter">_current<span class="token punctuation">,</span>
+  workInProgress<span class="token punctuation">,</span>
+  Component<span class="token punctuation">,</span>
+  renderExpirationTime<span class="token punctuation">,</span></span>
+<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>_current <span class="token operator">!==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    _current<span class="token punctuation">.</span>alternate <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    workInProgress<span class="token punctuation">.</span>alternate <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    workInProgress<span class="token punctuation">.</span>effectTag <span class="token operator">|=</span> Placement<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">const</span> props <span class="token operator">=</span> workInProgress<span class="token punctuation">.</span>pendingProps<span class="token punctuation">;</span>
+  <span class="token keyword">const</span> unmaskedContext <span class="token operator">=</span> <span class="token function">getUnmaskedContext</span><span class="token punctuation">(</span>workInProgress<span class="token punctuation">,</span> Component<span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">const</span> context <span class="token operator">=</span> <span class="token function">getMaskedContext</span><span class="token punctuation">(</span>workInProgress<span class="token punctuation">,</span> unmaskedContext<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token function">prepareToReadContext</span><span class="token punctuation">(</span>workInProgress<span class="token punctuation">,</span> renderExpirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">let</span> value<span class="token punctuation">;</span>
+
+  value <span class="token operator">=</span> <span class="token function">Component</span><span class="token punctuation">(</span>props<span class="token punctuation">,</span> context<span class="token punctuation">)</span>
+  workInProgress<span class="token punctuation">.</span>effectTag <span class="token operator">|=</span> PerformedWork<span class="token punctuation">;</span>
+
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>
+    <span class="token keyword">typeof</span> value <span class="token operator">===</span> <span class="token string">'object'</span> <span class="token operator">&amp;&amp;</span>
+    value <span class="token operator">!==</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span>
+    <span class="token keyword">typeof</span> value<span class="token punctuation">.</span>render <span class="token operator">===</span> <span class="token string">'function'</span> <span class="token operator">&amp;&amp;</span>
+    value<span class="token punctuation">.</span>$$<span class="token keyword">typeof</span> <span class="token operator">===</span> <span class="token keyword">undefined</span>
+  <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    workInProgress<span class="token punctuation">.</span>tag <span class="token operator">=</span> ClassComponent<span class="token punctuation">;</span>
+    <span class="token keyword">let</span> hasContext <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isLegacyContextProvider</span><span class="token punctuation">(</span>Component<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      hasContext <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+      <span class="token function">pushLegacyContextProvider</span><span class="token punctuation">(</span>workInProgress<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      hasContext <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    workInProgress<span class="token punctuation">.</span>memoizedState <span class="token operator">=</span>
+      value<span class="token punctuation">.</span>state <span class="token operator">!==</span> <span class="token keyword">null</span> <span class="token operator">&amp;&amp;</span> value<span class="token punctuation">.</span>state <span class="token operator">!==</span> <span class="token keyword">undefined</span> <span class="token operator">?</span> value<span class="token punctuation">.</span>state <span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">const</span> getDerivedStateFromProps <span class="token operator">=</span> Component<span class="token punctuation">.</span>getDerivedStateFromProps<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> getDerivedStateFromProps <span class="token operator">===</span> <span class="token string">'function'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">applyDerivedStateFromProps</span><span class="token punctuation">(</span>
+        workInProgress<span class="token punctuation">,</span>
+        Component<span class="token punctuation">,</span>
+        getDerivedStateFromProps<span class="token punctuation">,</span>
+        props<span class="token punctuation">,</span>
+      <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">adoptClassInstance</span><span class="token punctuation">(</span>workInProgress<span class="token punctuation">,</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">mountClassInstance</span><span class="token punctuation">(</span>workInProgress<span class="token punctuation">,</span> Component<span class="token punctuation">,</span> props<span class="token punctuation">,</span> renderExpirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token function">finishClassComponent</span><span class="token punctuation">(</span>
+      <span class="token keyword">null</span><span class="token punctuation">,</span>
+      workInProgress<span class="token punctuation">,</span>
+      Component<span class="token punctuation">,</span>
+      <span class="token boolean">true</span><span class="token punctuation">,</span>
+      hasContext<span class="token punctuation">,</span>
+      renderExpirationTime<span class="token punctuation">,</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    workInProgress<span class="token punctuation">.</span>tag <span class="token operator">=</span> FunctionComponent<span class="token punctuation">;</span>
+    <span class="token function">reconcileChildren</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> workInProgress<span class="token punctuation">,</span> value<span class="token punctuation">,</span> renderExpirationTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> workInProgress<span class="token punctuation">.</span>child<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br></div></div></div> <div class="page-edit"><!----> <div class="last-updated"><span class="prefix">上次更新: </span> <span class="time">2021/2/21 下午12:25:23</span></div></div> <!----> </div> <!----></div></div>
+    <script src="/Web-React/assets/js/app.5b5e04da.js" defer></script><script src="/Web-React/assets/js/129.6d95fac0.js" defer></script>
+  </body>
+</html>
